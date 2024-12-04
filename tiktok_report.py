@@ -6,22 +6,32 @@ from selenium.common.exceptions import NoSuchElementException, TimeoutException
 import time
 
 def display_ascii_art():
-    # ASCII Waji Qof Ah oo Midab leh
+    # ASCII Waji Qof Ah oo sax ah
     ascii_art = """
-    \033[1;32m     O     O      \033[1;33m
-        \  -  /       \033[1;31m
-         \___/        \033[0m
+         O     O
+        \\  -  /
+         \\___/
      Code by Pop-Smoke and Rohan
     """
     print(ascii_art)
 
+def redirect_to_youtube():
+    # Hagitaanka isticmaalaha si uu u tago YouTube-kaaga
+    print("\nHadda waxaa lagugu hagayaa channel-ka YouTube-ka!")
+    time.sleep(2)
+    driver = webdriver.Firefox()
+    driver.get("https://www.youtube.com/@XADAADI")
+    time.sleep(5)  # Sug in channel-ka uu si buuxda u shido
+    driver.quit()
+
 def tiktok_report_generator(username):
+    driver = None
     try:
         # ASCII Waji Qof Ah
         display_ascii_art()
         
-        # Initialize Chrome WebDriver
-        driver = webdriver.Chrome()
+        # Initialize Firefox WebDriver (Geckodriver)
+        driver = webdriver.Firefox()  # Haddii aad isticmaasho Termux, rakib Geckodriver
         driver.maximize_window()
 
         # Navigate to TikTok
@@ -62,7 +72,6 @@ def tiktok_report_generator(username):
             report_button.click()
         except NoSuchElementException:
             print("Report button not found. Exiting.")
-            driver.quit()
             return
 
         # Wait for the report popup to appear
@@ -92,7 +101,11 @@ def tiktok_report_generator(username):
     except Exception as e:
         print(f"An error occurred: {e}")
     finally:
-        driver.quit()
+        if driver:
+            driver.quit()
+        
+        # Hagitaan kadib
+        redirect_to_youtube()
 
 # Example usage
 if __name__ == "__main__":
