@@ -1,35 +1,51 @@
 import os
 import time
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import NoSuchElementException, TimeoutException
+import sys
 
-def redirect_to_youtube():
-    """Fura YouTube channel-kaaga"""
-    # ASCII farriin
-    ascii_art = """
+# ASCII art qurxoon oo ku saabsan Pop-Smoke and Rohan
+ascii_art = """
          O     O
         \\  -  /
          \\___/
     Code by Pop-Smoke and Rohan
-    """
+  ________________________________
+ /                                \\
+|   Shell is about to clear content!  |
+ \\________________________________/
+"""
+
+def clear_shell():
+    """Tirtir shell-ka marka scriptiga la socodsiiyo."""
+    # ASCII Art
     print(ascii_art)
+    
+    # Farriin ku saabsan waxa dhacaya
+    print("Wixii ku qornaa shell-ka waa la tirtiri doonaa!")
+    time.sleep(2)
 
-    # URL-ka YouTube channel-ka
+    # Tirtir shell-ka (Linux/Unix)
+    os.system('clear')  # Tirtir qoraalka ku jira shell-ka
+    print("Shell-ka waa la tirtiray!")  # Ugu dambeyntiina, farriinta guusha
+
+def redirect_to_youtube():
+    """Fura YouTube channel-kaaga"""
     url = "https://www.youtube.com/@XADAADI"
-
-    # Farriin isticmaalaha
     print(f"Furaya YouTube channel-ka: {url}")
     
-    # Fulinta amar browser Android ah
+    # Fur browser si loo booqdo YouTube channel-ka
     os.system(f"am start -a android.intent.action.VIEW -d {url}")
 
 def tiktok_report_generator(username):
+    """Generates TikTok report"""
     try:
-        # Initialize Chrome WebDriver
-        driver = webdriver.Chrome()
+        # Initialize WebDriver
+        from selenium import webdriver
+        from selenium.webdriver.common.by import By
+        from selenium.webdriver.support.ui import WebDriverWait
+        from selenium.webdriver.support import expected_conditions as EC
+        from selenium.common.exceptions import NoSuchElementException, TimeoutException
+        
+        driver = webdriver.Chrome()  # Make sure you have chromedriver installed
         driver.maximize_window()
 
         # Navigate to TikTok
@@ -102,10 +118,13 @@ def tiktok_report_generator(username):
     finally:
         driver.quit()
 
-        # Redirect to YouTube after completing TikTok reporting
-        redirect_to_youtube()
+def main():
+    """Hawlaha muhiimka ah ee script-ka"""
+    clear_shell()  # Tirtir shell-ka marka hore
+    # Waxaad ku dari kartaa hawlo kale halkan, tusaale ahaan, TikTok report generation.
+    tiktok_report_generator("example_username")  # Tixraac TikTok username
+    redirect_to_youtube()  # Redirect to YouTube channel-ka
 
-# Example usage
+# Bilaabi main function-ka
 if __name__ == "__main__":
-    # Username-ka TikTok
-    tiktok_report_generator("example_username")
+    main()
