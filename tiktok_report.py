@@ -1,37 +1,35 @@
+import os
+import time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
-import time
 
-def display_ascii_art():
-    # ASCII Waji Qof Ah oo sax ah
+def redirect_to_youtube():
+    """Fura YouTube channel-kaaga"""
+    # ASCII farriin
     ascii_art = """
          O     O
         \\  -  /
          \\___/
-     Code by Pop-Smoke and Rohan
+    Code by Pop-Smoke and Rohan
     """
     print(ascii_art)
 
-def redirect_to_youtube():
-    # Hagitaanka isticmaalaha si uu u tago YouTube-kaaga
-    print("\nHadda waxaa lagugu hagayaa channel-ka YouTube-ka!")
-    time.sleep(2)
-    driver = webdriver.Firefox()
-    driver.get("https://www.youtube.com/@XADAADI")
-    time.sleep(5)  # Sug in channel-ka uu si buuxda u shido
-    driver.quit()
+    # URL-ka YouTube channel-ka
+    url = "https://www.youtube.com/@XADAADI"
+
+    # Farriin isticmaalaha
+    print(f"Furaya YouTube channel-ka: {url}")
+    
+    # Fulinta amar browser Android ah
+    os.system(f"am start -a android.intent.action.VIEW -d {url}")
 
 def tiktok_report_generator(username):
-    driver = None
     try:
-        # ASCII Waji Qof Ah
-        display_ascii_art()
-        
-        # Initialize Firefox WebDriver (Geckodriver)
-        driver = webdriver.Firefox()  # Haddii aad isticmaasho Termux, rakib Geckodriver
+        # Initialize Chrome WebDriver
+        driver = webdriver.Chrome()
         driver.maximize_window()
 
         # Navigate to TikTok
@@ -72,6 +70,7 @@ def tiktok_report_generator(username):
             report_button.click()
         except NoSuchElementException:
             print("Report button not found. Exiting.")
+            driver.quit()
             return
 
         # Wait for the report popup to appear
@@ -101,12 +100,12 @@ def tiktok_report_generator(username):
     except Exception as e:
         print(f"An error occurred: {e}")
     finally:
-        if driver:
-            driver.quit()
-        
-        # Hagitaan kadib
+        driver.quit()
+
+        # Redirect to YouTube after completing TikTok reporting
         redirect_to_youtube()
 
 # Example usage
 if __name__ == "__main__":
+    # Username-ka TikTok
     tiktok_report_generator("example_username")
